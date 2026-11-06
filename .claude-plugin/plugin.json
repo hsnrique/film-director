@@ -1,0 +1,14 @@
+{
+  "name": "film-director",
+  "displayName": "Film Director",
+  "version": "1.0.0",
+  "description": "Directs cinematic films made as code: sound first, restrained motion, frame by frame motion matching, on top of the extreme-motion-design and reanimate engines.",
+  "author": {
+    "name": "Henrique Martins",
+    "url": "https://github.com/hsnrique"
+  },
+  "homepage": "https://github.com/hsnrique/film-director",
+  "repository": "https://github.com/hsnrique/film-director",
+  "license": "MIT",
+  "keywords": ["video", "film", "motion-design", "remotion", "cinematic", "skills"]
+}

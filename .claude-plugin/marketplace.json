@@ -1,0 +1,15 @@
+{
+  "name": "film-director",
+  "description": "Film Director skill for Claude Code",
+  "owner": {
+    "name": "Henrique Martins",
+    "url": "https://github.com/hsnrique"
+  },
+  "plugins": [
+    {
+      "name": "film-director",
+      "source": "./",
+      "description": "Cinematic films made as code, with sound first and frame by frame verification."
+    }
+  ]
+}
