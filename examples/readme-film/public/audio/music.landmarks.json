@@ -1,0 +1,51 @@
+{
+  "first_note": 1.5,
+  "peak": 31.0,
+  "final_chord": 32.5,
+  "chords": [
+    {
+      "at": 1.5,
+      "chord": "Dmadd9"
+    },
+    {
+      "at": 5.5,
+      "chord": "Bbmaj7"
+    },
+    {
+      "at": 9.5,
+      "chord": "F/A"
+    },
+    {
+      "at": 13,
+      "chord": "Gm"
+    },
+    {
+      "at": 17,
+      "chord": "Dm"
+    },
+    {
+      "at": 21,
+      "chord": "Bbmaj7"
+    },
+    {
+      "at": 24.5,
+      "chord": "Csus4"
+    },
+    {
+      "at": 26.5,
+      "chord": "A"
+    },
+    {
+      "at": 28,
+      "chord": "Dadd9"
+    },
+    {
+      "at": 30.5,
+      "chord": "Bbmaj7"
+    },
+    {
+      "at": 32.5,
+      "chord": "Dadd9"
+    }
+  ]
+}

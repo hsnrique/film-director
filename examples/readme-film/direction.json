@@ -1,0 +1,49 @@
+{
+ "concept": "A cursor becomes a film: the sound arrives first, the picture is cut to it and measured, and it is released at dawn.",
+ "law": "Blue hour warming to dawn, one warm light, one cool blue for the reference. A serif voice for words and mono only for what is typed. The light is the only thing that ever glows.",
+ "motif": "One point of light: born from the caret, it draws the sound, marks every cut, is matched against its reference, and rises as the dawn.",
+ "options": [
+  {
+   "name": "A",
+   "idea": "Blue hour to dawn: a single light moving through depth over a waveform horizon, letterboxed until the payoff."
+  },
+  {
+   "name": "B",
+   "idea": "Paper and ink: a ruled sheet where the score is drawn as a staff and frames are pinned like a storyboard."
+  }
+ ],
+ "chosen": "A",
+ "approved_by": "agent",
+ "scenes": [
+  {
+   "id": "open",
+   "layout": "one typed line, low left, on the blue",
+   "entrance": "typed by a person",
+   "hero": "the caret"
+  },
+  {
+   "id": "sound",
+   "layout": "full width waveform on the centre line",
+   "entrance": "drawn outward from the light",
+   "hero": "the score"
+  },
+  {
+   "id": "cut",
+   "layout": "frames hanging in depth above the waveform",
+   "entrance": "rise from the cue ticks, camera dolly",
+   "hero": "the cuts on the score"
+  },
+  {
+   "id": "match",
+   "layout": "one frame on the right, an arc across it",
+   "entrance": "camera pushes into a frame",
+   "hero": "the light meeting its reference"
+  },
+  {
+   "id": "dawn",
+   "layout": "horizon low, title centred above it",
+   "entrance": "letterbox opens, light rises",
+   "hero": "the title"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+  "duration": 37,
+  "piano_pulse": 1.5,
+  "chords": [
+    {"at": 1.5, "chord": "Dmadd9"},
+    {"at": 5.5, "chord": "Bbmaj7"},
+    {"at": 9.5, "chord": "F/A"},
+    {"at": 13, "chord": "Gm"},
+    {"at": 17, "chord": "Dm"},
+    {"at": 21, "chord": "Bbmaj7"},
+    {"at": 24.5, "chord": "Csus4"},
+    {"at": 26.5, "chord": "A"},
+    {"at": 28, "chord": "Dadd9"},
+    {"at": 30.5, "chord": "Bbmaj7"},
+    {"at": 32.5, "chord": "Dadd9"}
+  ],
+  "dynamics": [
+    [0, 0.08], [5.5, 0.18], [13, 0.34], [21, 0.5], [26.2, 0.58],
+    [27.1, 0.04], [27.85, 0.04], [28, 0.84], [31, 0.95], [33, 0.7], [37, 0.28]
+  ],
+  "sections": [
+    {"from": 0, "to": 26.5, "parts": ["piano"]},
+    {"from": 5.5, "to": 37, "parts": ["strings"]},
+    {"from": 13, "to": 37, "parts": ["cello"]},
+    {"from": 21, "to": 37, "parts": ["bass"]},
+    {"from": 28, "to": 37, "parts": ["piano", "horn", "choir"]}
+  ],
+  "melody": [
+    {"at": 1.5, "note": "A4", "dur": 3.5},
+    {"at": 9.5, "note": "C5", "dur": 2},
+    {"at": 11.5, "note": "A4", "dur": 1.5},
+    {"at": 17, "note": "D5", "dur": 2},
+    {"at": 19, "note": "C5", "dur": 1},
+    {"at": 20, "note": "A4", "dur": 1},
+    {"at": 24.5, "note": "G4", "dur": 2},
+    {"at": 28, "note": "A4", "dur": 2.5, "part": "horn"},
+    {"at": 30.5, "note": "F4", "dur": 2, "part": "horn"},
+    {"at": 32.5, "note": "D5", "dur": 4}
+  ]
+}

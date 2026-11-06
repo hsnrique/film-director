@@ -1,0 +1,5 @@
+node_modules/
+out/
+.env
+# Rebuilt from score.json and timeline.json: see HANDOFF.md
+public/audio/*.wav

@@ -1,0 +1,28 @@
+{
+ "cuts": {
+  "open": 0.0,
+  "sound": 5.5,
+  "cut": 13.0,
+  "match": 21.0,
+  "dawn": 28.0
+ },
+ "ev": {
+  "type": 1.5,
+  "fold": 4.6,
+  "draw": 5.6,
+  "capSound": 7.1,
+  "rise": 13.3,
+  "capCut": 14.4,
+  "enter": 19.8,
+  "pass": 21.4,
+  "capMatch": 21.9,
+  "hush": 26.2,
+  "title": 29.2,
+  "line": 30.7,
+  "url": 32.2,
+  "out": 36.4
+ },
+ "phrases": [],
+ "words": [],
+ "beats": []
+}

@@ -17,6 +17,10 @@ EMD_REPO="https://github.com/dev-isaacmello/extreme-motion-design"
 EMD_SHA="5ae58839564de9df71b116026f5631b2c0b364e5"
 REANIMATE_REPO="https://github.com/NiazMorshed2007/reanimate"
 REANIMATE_SHA="3f7a55a2986a84ca2173e86ee9127eefe31d046d"
+# The score's instruments: GeneralUser GS 2.0.3 by S. Christian Collins, from the author's own
+# repository at a fixed commit, checked by hash so a changed file is refused, not played.
+SOUNDFONT_URL="https://raw.githubusercontent.com/mrbumpy409/GeneralUser-GS/684543d5e5efaef08d02be50dcda8d552478fa60/GeneralUser-GS.sf2"
+SOUNDFONT_SHA256="9575028c7a1f589f5770fccc8cff2734566af40cd26ed836944e9a5152688cfe"
 
 say() { printf '%s\n' "$*"; }
 fail() { say "FAIL: $*"; exit 1; }
@@ -52,11 +56,26 @@ fetch_pinned() {
   [ "$(git -C "$dir" rev-parse HEAD)" = "$sha" ] || fail "$name did not resolve to $sha"
 }
 
+sha256_of() { shasum -a 256 "$1" 2>/dev/null | cut -d' ' -f1 || sha256sum "$1" | cut -d' ' -f1; }
+
+fetch_soundfont() {
+  local file="$VENDOR/soundfont/GeneralUser-GS.sf2"
+  if [ -f "$file" ] && [ "$(sha256_of "$file")" = "$SOUNDFONT_SHA256" ]; then
+    say "ok    soundfont"; return
+  fi
+  $CHECK_ONLY && { say "miss  soundfont"; MISSING=true; return; }
+  say "fetch soundfont (32 MB)"
+  mkdir -p "$VENDOR/soundfont"
+  curl -fsSL -o "$file.part" "$SOUNDFONT_URL"
+  [ "$(sha256_of "$file.part")" = "$SOUNDFONT_SHA256" ] || { rm -f "$file.part"; fail "soundfont hash mismatch"; }
+  mv "$file.part" "$file"
+}
+
 warm_python_scripts() {
   # Each engine script declares its own dependencies inline (PEP 723); syncing them now means
   # the first render does not stop halfway to download numpy or librosa.
   local script
-  for script in "$VENDOR/extreme-motion-design/skills/extreme-motion-design/scripts/"*.py; do
+  for script in "$VENDOR/extreme-motion-design/skills/extreme-motion-design/scripts/"*.py "$SKILL/scripts/"*.py; do
     grep -q '^# /// script' "$script" || continue
     uv sync -q --script "$script" || fail "could not install the dependencies of $(basename "$script")"
   done
@@ -79,10 +98,12 @@ say "ok    node $(node -v)"
 need_tool ffmpeg ffmpeg "https://ffmpeg.org/download.html"
 need_tool uv uv "https://docs.astral.sh/uv/getting-started/installation/"
 need_tool bun oven-sh/bun/bun "https://bun.sh"
+need_tool fluidsynth fluid-synth "https://www.fluidsynth.org"
 
 mkdir -p "$VENDOR"
 fetch_pinned extreme-motion-design "$EMD_REPO" "$EMD_SHA"
 fetch_pinned reanimate "$REANIMATE_REPO" "$REANIMATE_SHA"
+fetch_soundfont
 
 if $CHECK_ONLY; then
   $MISSING && { say "not ready: run without --check"; exit 1; }

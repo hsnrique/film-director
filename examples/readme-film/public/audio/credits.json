@@ -1,0 +1,11 @@
+[
+ {
+  "file": "music.wav",
+  "role": "music",
+  "title": "Film Director, score",
+  "author": "composed for this film by film-director's compose.py from score.json",
+  "instruments": "GeneralUser GS 2.0.3 by S. Christian Collins (GeneralUser GS License v2.0)",
+  "license": "no third party rights in the composition; instrument samples used under the soundfont's licence",
+  "attribution": null
+ }
+]

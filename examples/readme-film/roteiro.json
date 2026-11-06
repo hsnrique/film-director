@@ -1,0 +1,75 @@
+{
+ "format": "youtube",
+ "fps": 30,
+ "start": 0,
+ "tail": 0,
+ "duration": 37,
+ "voice": {
+  "provider": "none"
+ },
+ "music": {
+  "file": "audio/music.wav",
+  "gain_db": -6,
+  "duck_db": 0,
+  "fade_in": 0,
+  "fade_out": 1.5
+ },
+ "loudness": {
+  "lufs": -16,
+  "tp": -1.0
+ },
+ "budget": {
+  "full_renders": 4,
+  "stills": 60
+ },
+ "scenes": [
+  {
+   "id": "open",
+   "dur": 5.5,
+   "cues": {
+    "type": 1.5,
+    "fold": 4.6
+   }
+  },
+  {
+   "id": "sound",
+   "dur": 7.5,
+   "cues": {
+    "draw": 0.1,
+    "capSound": 1.6
+   }
+  },
+  {
+   "id": "cut",
+   "dur": 8,
+   "cues": {
+    "rise": 0.3,
+    "capCut": 1.4,
+    "enter": 6.8
+   }
+  },
+  {
+   "id": "match",
+   "dur": 7,
+   "cues": {
+    "pass": 0.4,
+    "capMatch": 0.9,
+    "hush": 5.2
+   }
+  },
+  {
+   "id": "dawn",
+   "dur": 9,
+   "cues": {
+    "title": 1.2,
+    "line": 2.7,
+    "url": 4.2,
+    "out": 8.4
+   }
+  }
+ ],
+ "cut": {
+  "on": "phrase",
+  "sfx": null
+ }
+}

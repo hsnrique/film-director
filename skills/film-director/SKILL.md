@@ -2,7 +2,7 @@
 name: film-director
 description: Directs cinematic films made as code (Remotion and React): launch films, release recaps, brand films, product explainers, trailers, reels. It brings the taste (sound first, one continuous score, restrained motion, one caption at a time), the order of work, and frame by frame verification against any motion reference, and drives two pinned engines that do the building and the measuring. Use when someone asks for a launch video, a brand film, a product or release film, a trailer, a cinematic reel, a video "like this one", a scene that must move exactly like a reference site or clip, or says the last video looked amateur, too animated, or AI made.
 license: MIT
-compatibility: macOS or Linux, Node 18+, git. The installer adds ffmpeg, uv and bun through Homebrew when they are missing. Remotion is free for individuals and companies of up to 3 people; larger companies need a Remotion Company License. ElevenLabs (music, voice, effects) is optional and paid.
+compatibility: macOS or Linux, Node 18+, git. The installer adds ffmpeg, uv, bun and fluidsynth through Homebrew when they are missing. Remotion is free for individuals and companies of up to 3 people; larger companies need a Remotion Company License. ElevenLabs (music, voice, effects) is optional and paid.
 metadata:
   version: "1.0.0"
   author: "Henrique Martins"
@@ -23,13 +23,15 @@ Both are pinned to an exact commit and installed by `scripts/install.sh`. Their 
 - `<emd>`: `<skill>/vendor/extreme-motion-design/skills/extreme-motion-design`
 - `<rea>`: `<skill>/vendor/reanimate/skills/reanimate`
 
+This skill's own scripts: `install.sh`, `compose.py` (writes and plays the score), `listen.py` (reads any audio as numbers, since the agent cannot hear), `pin-deps.mjs`.
+
 ## 0. Install (every session, takes a second when done)
 
 ```bash
 bash <skill>/scripts/install.sh --check || bash <skill>/scripts/install.sh
 ```
 
-It installs ffmpeg, uv and bun when missing, fetches both engines at their pinned commit, syncs every engine script's Python dependencies, installs reanimate's scripts from its lockfile and the headless Chromium. If it fails, stop and show the user the failing line. Never fall back to building the film without the gates.
+It installs ffmpeg, uv, bun and fluidsynth when missing, the GeneralUser GS soundfont (checked by hash), fetches both engines at their pinned commit, syncs every engine script's Python dependencies, installs reanimate's scripts from its lockfile and the headless Chromium. If it fails, stop and show the user the failing line. Never fall back to building the film without the gates.
 
 ## The order of work
 
@@ -43,13 +45,14 @@ It installs ffmpeg, uv and bun when missing, fetches both engines at their pinne
    ```
    `pin-deps.mjs` turns every version range into the exact installed version, so the film rebuilds the same way next month.
 6. **Direction.** Read `<emd>/references/design.md`, `direction.md` and `doctrine.md`, then `references/taste.md` here. Propose 2 or 3 directions with one styleframe each (`contact_sheet.py --images`) and let the user pick. Every direction must pass the taste filter: dark or paper ground with depth, one accent, real type hierarchy, one motif that carries meaning through the film. Write the choice into `direction.json`.
-7. **Sound before picture.** Follow `references/sound.md`: one continuous score for the whole film, placed so its landmarks land on the picture's turns; real Foley only where something happens on screen; silence before the big moments. Measure the score's landmarks (`uv run <emd>/scripts/beats.py`) and write them as named cues in `roteiro.json`. Then `uv run <emd>/scripts/score.py --dry`, say the paid character count, wait for the yes, then `--yes`. The picture is cut to the sound, never the other way round.
-8. **Build the scenes** under the engine's rules (`<emd>/SKILL.md`, "Regras inegociáveis": everything derives from the frame, curves only from the motion tokens, time only from cues, colour only from the theme). Each scene's layout, entrance and hero come from `direction.json`.
-9. **Match references frame by frame.** When the user points at a site, clip or gif and says "move like this", follow `references/motion-match.md`: capture the reference, write the motion spec, build the scene, render only that scene, compare with reanimate, fix, repeat until every row passes. A whole film given as a reference goes through `uv run <emd>/scripts/reference.py analyze` instead (structure and rhythm, never its frames, assets, text or sound).
-10. **Dailies are stills, not renders.** `node <emd>/scripts/stills.cjs <Comp> --times ...` at half scale, the layout probe and the design meter after every scene. A full render costs minutes and is budgeted; a still costs seconds.
-11. **Independent review.** Send the contact sheet and the brief to a clean context subagent with `<emd>/references/critic.md`, plus the taste questions at the end of `references/taste.md`. Whoever wrote the scene does not approve it.
-12. **Mix, render, deliver, gate.** Apply the house overrides below to `public/timeline.json`, then run step 12 of `<emd>/SKILL.md` (mix, render, deliver, `qa.py`, contact sheet). Deliver only with no FAIL. Copy the final file to `~/Movies/<film>.mp4` unless the user named another place.
-13. **Honest delivery.** The file, the contact sheet, the credits, every WARN, who approved the direction, every fallback taken, what was not verified, and the credits spent. Then update the handoff.
+7. **Sound before picture.** Follow `references/sound.md`. By default compose the score yourself: write `score.json` (chords, dynamics, sections, melody) against the chapter table and render it with `uv run <skill>/scripts/compose.py score.json -o public/audio/music.wav`. It plays through sampled piano, strings, cello, horn and choir, costs nothing, and every chord lands on its cue by construction (`music.landmarks.json`). You cannot hear, so read it with `uv run <skill>/scripts/listen.py public/audio/music.wav --moments <turns>` and fix what the numbers show before the user listens. Then `uv run <emd>/scripts/score.py --dry`; with a voice, say the paid character count and wait for the yes before `--yes`. The picture is cut to the sound, never the other way round.
+8. **Build the scenes** under the engine's rules (the non-negotiable rules in `<emd>/SKILL.md`: everything derives from the frame, curves only from the motion tokens, time only from cues, colour only from the theme). Each scene's layout, entrance and hero come from `direction.json`.
+9. **Direct changes live.** From the first scene on, keep `npx remotion studio` open and run every change the user asks for through `references/revisions.md`: locate it, name the knob, show before and after, record it.
+10. **Match references frame by frame.** When the user points at a site, clip or gif and says "move like this", follow `references/motion-match.md`: capture the reference, write the motion spec, build the scene, render only that scene, compare with reanimate, fix, repeat until every row passes. A whole film given as a reference goes through `uv run <emd>/scripts/reference.py analyze` instead (structure and rhythm, never its frames, assets, text or sound).
+11. **Dailies are stills, not renders.** `node <emd>/scripts/stills.cjs <Comp> --times ...` at half scale, the layout probe and the design meter after every scene. A full render costs minutes and is budgeted; a still costs seconds.
+12. **Independent review.** Send the contact sheet and the brief to a clean context subagent with `<emd>/references/critic.md`, plus the taste questions at the end of `references/taste.md`. Whoever wrote the scene does not approve it.
+13. **Mix, render, deliver, gate.** Apply the house overrides below to `public/timeline.json`, then run step 12 of `<emd>/SKILL.md` (mix, render, deliver, `qa.py`, contact sheet). Deliver only with no FAIL. Copy the final file to `~/Movies/<film>.mp4` unless the user named another place.
+14. **Honest delivery.** The file, the contact sheet, the credits, every WARN, who approved the direction, every fallback taken, what was not verified, and the credits spent. Then update the handoff.
 
 ## House overrides of engine defaults
 
@@ -57,8 +60,11 @@ It installs ffmpeg, uv and bun when missing, fetches both engines at their pinne
 |---|---|---|---|
 | Integrated loudness | -14 LUFS | -16 LUFS, true peak -1 dBTP | Films are watched with intent, not scrolled past; -16 keeps the dynamic arc |
 | Music under voice | fixed -10 dB duck | bed sits 12 to 14 dB under every line, ramps 0.8 s down and 1.5 s up, stays down between lines closer than 2.5 s | Voice sits clearly on top without the bed pumping |
-| Music source | Incompetech, Openverse, generated | one commissioned take for the whole film (ElevenLabs Music through the connected account, or the user's licensed track); engine sources only as fallback | One score that breathes with the story beats a stitched library cut |
+| Music source | Incompetech, Openverse, generated | composed for this film with `compose.py`; ElevenLabs Music or the user's licensed track when they ask; engine library sources only as a last fallback | One score written to the picture beats a stitched library cut |
 | Synthesized impacts | allowed | never stack them; one designed hit at most per act | Stacked synth hits read as amateur bursts |
+| QA loudness target | profile default (-14 for youtube) | pass `--lufs -16` to `qa.py` | Matches the house master; without it the gate fails a correct film |
+| QA "long static stretch" | WARN past 1.5 s | expected on slow, contemplative films: it measures frame to frame change, so a slow drift reads as still; check the stills instead | Pace is a taste decision, not a defect |
+| Sound on every cut | a whoosh on each scene change | none: `"cut": {"sfx": null}` in `roteiro.json` | A whoosh per cut is the sound of a template |
 | Closing line | free | no spoken tagline on the end card; music only | A tagline after the payoff breaks the mood |
 | Dashes | free | never write an em dash in captions, titles, handoff or credits | House style |
 

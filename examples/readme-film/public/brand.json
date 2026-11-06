@@ -1,0 +1,21 @@
+{
+ "name": "Film Director",
+ "colors": {
+  "bg": "#17243D",
+  "ink": "#EEE7DA",
+  "accent": "#F4C58E",
+  "muted": "#7E8696",
+  "line": "#3A4C72",
+  "second": "#5B8EE6",
+  "dawn": "#3B2216",
+  "void": "#020305",
+  "ground": "#25385E"
+ },
+ "fonts": {
+  "display": "Instrument Serif",
+  "body": "Inter",
+  "mono": "JetBrains Mono"
+ },
+ "logo": null,
+ "source": "chosen for this film: blue hour warming to dawn, one warm light as the motif, a cool blue for the reference"
+}

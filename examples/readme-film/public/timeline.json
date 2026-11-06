@@ -1,0 +1,50 @@
+{
+ "fps": 30,
+ "width": 1920,
+ "height": 1080,
+ "duration": 37.0,
+ "audio": "audio/mix.wav",
+ "music": {
+  "gain_db": -6,
+  "duck_db": 0,
+  "fade_in": 0,
+  "fade_out": 1.5,
+  "file": "audio/music.wav"
+ },
+ "scenes": [
+  {
+   "id": "open",
+   "start": 0.0,
+   "end": 5.5
+  },
+  {
+   "id": "sound",
+   "start": 5.5,
+   "end": 13.0
+  },
+  {
+   "id": "cut",
+   "start": 13.0,
+   "end": 21.0
+  },
+  {
+   "id": "match",
+   "start": 21.0,
+   "end": 28.0
+  },
+  {
+   "id": "dawn",
+   "start": 28.0,
+   "end": 37.0
+  }
+ ],
+ "sfx": [],
+ "loudness": {
+  "lufs": -16,
+  "tp": -1.0
+ },
+ "budget": {
+  "full_renders": 4,
+  "stills": 60
+ }
+}
